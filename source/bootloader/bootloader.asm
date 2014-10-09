@@ -34,8 +34,8 @@
 ; ------------------------------------------------------------------
 
 bootloader:
-	mov [boot_device], dl	; Store boot_device
-	jmp $
+  mov [boot_device], dl	; Store boot_device
+  jmp $
 
 %include "../lib/lba2chs.asm"
 
