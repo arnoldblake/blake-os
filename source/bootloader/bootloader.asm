@@ -34,7 +34,13 @@
 ; ------------------------------------------------------------------
 
 bootloader:
+	mov [boot_device], dl	; Store boot_device
 	jmp $
+
+%include "../lib/lba2chs.asm"
+
+; ------------------------------------------------------------------	
+	boot_device db 0	; Boot device value
 
 ; ------------------------------------------------------------------
 ; Pad out remaining space and set the bootsignature bytes
