@@ -9,7 +9,7 @@ bootloader.bin:
 	nasm -O0 -w+orphan-labels -f bin source/bootloader/bootloader.asm -o source/bootloader/bootloader.bin
 	
 clean:
-	rm -rf *.bin *.o *.dis *.flp
+	rm -rf ./*.bin ./*.o ./*.dis ./*.flp
 
 disassemble: bootloader.bin
 	od -t x1 -A n source/bootloader/bootloader.bin
