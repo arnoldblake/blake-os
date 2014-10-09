@@ -2,8 +2,6 @@
 ; FILE: lba2chs.asm AUTHOR: Blake Arnold DATE: 10-09-2014
 ; PURPOSE: Convert Logical Block Address to Cylinder Head Sector
 ; address. Result is stored in cx and dh in anticipation of int 13h.
-; The 
-; 
 ; ==================================================================
 
 lba2chs:
