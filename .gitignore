@@ -1,6 +1,7 @@
 # Binary and Image files
 .bin
 .flp
+.dis
 
 # Windows image file caches
 Thumbs.db
