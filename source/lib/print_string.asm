@@ -6,6 +6,7 @@
 ; ==================================================================
 
 print_string:
+	pusha
 	mov bx, ax
 	mov ah, 0x0E
 print_string_start:
@@ -14,4 +15,5 @@ print_string_start:
 	add bx, 1
 	cmp byte [bx], 0
 	jne print_string_start
+	popa
 	ret

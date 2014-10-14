@@ -14,14 +14,14 @@
 ; ------------------------------------------------------------------
 		dq 0				; Ignored (8 - 10)
 		db 0
-		dw 512				; Bytes per logical sector
-		db 1				; Logical sectors per cluster
+	BPS	dw 512				; Bytes per logical sector
+	SPC	db 1				; Logical sectors per cluster
 		dw 1				; Reserved logical sectors
-		db 2				; Number of FATs
+	NOF	db 2				; Number of FATs
 	RDE	dw 224				; Root directory entries
 		dw 2880				; Total logical sectors
 		db 240				; Media descriptor
-		dw 9				; Logical sectors per FAT
+	SPF	dw 9				; Logical sectors per FAT
 ; ------------------------------------------------------------------
 	SPT dw 18				; Physical sectors per track
 	HPC	dw 2				; Number of heads
@@ -36,44 +36,75 @@
 		db "FAT12   "		; File system type
 ; ------------------------------------------------------------------
 
-bootloader:
-	mov ax, 0x7C0			; Where we are loaded in memory
-    mov ds, ax				; Into the data segment
-	mov ss, ax				; Also into the stack segment
-
-	mov bp, 0x9000			; Setup stack space
+; ------------------------------------------------------------------
+; Start of our bootloader code the goal here is to load the FAT12
+; root directory to memory and search for our kernel file. Load
+; the kernel to memory and begin to execute our kernel code. 
+; ------------------------------------------------------------------
+bootloader: ; Setup segment registers and the stack
+	mov ax, 0x7C0
+    mov ds, ax
+	mov es, ax
+	mov ss, ax
+	mov bp, 0x9000
 	mov sp, bp
 
     mov [boot_device], dl	; Store boot_device
 
-	mov ax, 19				; Convert LBA 19 to CHS format
+; LBA for root dir convert to CHS format
+	mov ax, 19 
 	call lba2chs
 
-	mov ah, 2				; Prepare to read 14 sectors from
-	mov al, 1				; floppy disk into memory at es:bx
+; Read root dir to memory 
+	mov bx, buffer
+	mov ah, 2
+	mov al, 14
 	mov dl, [boot_device]
-	mov bx, ds
-	mov	es, bx 				 
-	mov bx, buffer			
 	int 0x13
 
-	mov ax, buffer
-	mov bx, 8
-	call print_string2
-; ------------------------------------------------------------------
-; At this point we should have loaded the FAT12 root directory into
-; memory at es:bx. 
 
+	mov si, kernel_file_name
+	mov di, buffer
+	xor cx, cx
+	mov cx, 8
+	push di
+.loop:
+	rep cmpsb
+	jne .nomatch
+; ------------------------------------------------------------------
+; Match found
+; Pop di which stores our most recent root directory entry offset
+; 
+	pop di
+	mov ax,	di 
+	mov bx, 32
+	call print_string2
+
+.nomatch:
+	pop di
+	mov si, kernel_file_name
+	mov di, buffer
+	add di, 32
+	push di
+	jmp .loop
+
+
+end:
+	mov ax, MSG_NO_KERNEL_FOUND
+	call print_string
 	jmp $
 	
 %include "source/lib/lba2chs.asm"
+%include "source/lib/print_string.asm"
 %include "source/lib/print_string2.asm"
 
 ; ------------------------------------------------------------------	
 	boot_device db 0	; Boot device value
-
+	kernel_file_name	db "KERNEL  "	; File name of our kernel
+	MSG_NO_KERNEL_FOUND db "Could not find kernel", 0
 ; ------------------------------------------------------------------
 ; Pad out remaining space and set the bootsignature bytes
+; ------------------------------------------------------------------
 	times 510-($-$$) db 0	; Pad with zero
 	dw 0xAA55		        ; Boot signature
 
