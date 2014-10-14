@@ -20,7 +20,7 @@
 		db 2				; Number of FATs
 	RDE	dw 224				; Root directory entries
 		dw 2880				; Total logical sectors
-		db 0				; Media descriptor
+		db 240				; Media descriptor
 		dw 9				; Logical sectors per FAT
 ; ------------------------------------------------------------------
 	SPT dw 18				; Physical sectors per track
@@ -50,12 +50,16 @@ bootloader:
 	call lba2chs
 
 	mov ah, 2				; Prepare to read 14 sectors from
-	mov al, 14				; floppy disk into memory at es:bx
+	mov al, 1				; floppy disk into memory at es:bx
 	mov dl, [boot_device]
 	mov bx, ds
 	mov	es, bx 				 
 	mov bx, buffer			
 	int 0x13
+
+	mov ax, buffer
+	mov bx, 8
+	call print_string2
 ; ------------------------------------------------------------------
 ; At this point we should have loaded the FAT12 root directory into
 ; memory at es:bx. 
@@ -63,11 +67,10 @@ bootloader:
 	jmp $
 	
 %include "source/lib/lba2chs.asm"
-%include "source/lib/print_string.asm"
+%include "source/lib/print_string2.asm"
 
 ; ------------------------------------------------------------------	
 	boot_device db 0	; Boot device value
-    MSG_HELLO	db "Hello World!", 0
 
 ; ------------------------------------------------------------------
 ; Pad out remaining space and set the bootsignature bytes
