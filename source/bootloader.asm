@@ -58,7 +58,8 @@ bootloader:
 	int 0x13
 
 	mov ax, buffer
-	mov bx, 8
+	add ax, 32
+	mov bx, 16
 	call print_string2
 ; ------------------------------------------------------------------
 ; At this point we should have loaded the FAT12 root directory into
