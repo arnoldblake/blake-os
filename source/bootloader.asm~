@@ -62,6 +62,8 @@ bootloader: ; Setup segment registers and the stack
 	mov dl, [boot_device]
 	int 0x13
 
+<<<<<<< HEAD
+
 	mov si, kernel_file_name
 	mov di, buffer
 	xor cx, cx
@@ -70,22 +72,20 @@ bootloader: ; Setup segment registers and the stack
 .loop:
 	rep cmpsb
 	jne .nomatch
+=======
+	mov ax, buffer
+	add ax, 32
+	mov bx, 16
+	call print_string2
+>>>>>>> origin
 ; ------------------------------------------------------------------
 ; Match found
 ; Pop di which stores our most recent root directory entry offset
-; ------------------------------------------------------------------ 
+; 
 	pop di
-	mov ax, 34 
-	call lba2chs
-	
-	mov bx, 0x2000
-	mov es, bx
-	xor bx, bx 
-	mov ah, 2
-	mov al, 1
-	mov dl, [boot_device]
-	int 0x13
-	jmp 0x2000:0000
+	mov ax,	di 
+	mov bx, 32
+	call print_string2
 
 .nomatch:
 	pop di

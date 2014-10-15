@@ -16,7 +16,7 @@ kstart:
 	mov fs, ax
 	mov gs, ax
 
-	mov bx, ax
+	mov bx, MSG_KERNEL
 	mov ah, 0x0E
 kprint_start:
 	mov al, [bx]
