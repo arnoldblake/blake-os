@@ -13,6 +13,7 @@
   
 ### Booting
   My overly simplified view of the boot process is: The computer is powered on, followed by the POST and loading of the BIOS. The BIOS then searches the first sector of each device for the word 0x55AA in the last two bytes of the sector. If it finds one such sector, the BIOS will copy that sector to memory address 0x7C00 and begin executing from that point.
+  
 ![Boot Sector Byte Diagram](https://github.com/arnoldblake/blake-os/blob/master/doc/images/boot_sector_byte_diagram.png)
   
 ## Refrences
