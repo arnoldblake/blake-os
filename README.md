@@ -12,7 +12,7 @@
   I have laid out the file structure with a root directory containing; the doc folder for documentation, the source directory which obviously containts the source code for building the bootloader, kernel, and the library files. Also in the root directory is the bochsrc script and the makefile.
   
 ### Booting
-  My overly simplified view of the boot process is: The computer is powered on, followed by the POST and loading of the BIOS. The BIOS then searches the first sector of each device for the word 0x55AA in the last two bytes of the sector. If it finds one such sector, the BIOS will copy that sector to memory address 0x7C00 and begin executing from that point.
+  My overly simplified view of the boot process is: The computer is powered on, followed by the POST and loading of the BIOS. The BIOS then searches for a volume boot record (the word 0x55AA in the last two bytes of the sector). If it finds one such sector, the BIOS will copy that sector to memory address 0x7C00 and begin executing from that point. Below is a diagram of a boot record formatted with FAT12. Each cell is 1 byte. Bytes 0x0B - 0x3D represent the BIOS Parameter Block (BPB).
   
 ![Boot Sector Byte Diagram](https://github.com/arnoldblake/blake-os/blob/master/doc/images/boot_sector_byte_diagram.png)
   
