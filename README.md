@@ -20,6 +20,9 @@
 
   When the computer hands over execution at this point the registers DS, ES, SS should be initialized to segment 0000h, SS:SP will be 0000h:0400h but should not be relied on. DL will be our boot device.
   
+### Bootloader
+  At this point the bootloader has some basic requirements that need to be meet in order to be able to expand the functionality of our OS. Mainly we need some functionality that will read sectors from our boot device into memory. This includes converting Logical Block Addresses (LBA) to Cylinder, Head, Sector (CHS) format. We should also be able to work with the FAT12 file system. I imagine at this point arbitrarily loading sectors from disk would work but would lack some flexibilty in the long run.
+  
 ## Refrences
 * [os-dev.pdf](http://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)
 * http://osdev.org
