@@ -16,12 +16,8 @@
 ![Boot Sector Byte Diagram](https://github.com/arnoldblake/blake-os/blob/master/doc/images/boot_sector_byte_diagram.png)
   
 ##Refrences
-####[os-dev.pdf](http://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)
-
-####http://osdev.org
-
-####[Boot Sector in C](http://crimsonglow.ca/~kjiwa/x86-dos-boot-sector-in-c.html)
-
-####[Mikeos](http://mikeos.sourceforge.net/)
-
-####[DOS Bootloader](http://www.tburke.net/info/ntldr/bootsect.txt)
+*[os-dev.pdf](http://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)
+*http://osdev.org
+*[Boot Sector in C](http://crimsonglow.ca/~kjiwa/x86-dos-boot-sector-in-c.html)
+*[Mikeos](http://mikeos.sourceforge.net/)
+*[DOS Bootloader](http://www.tburke.net/info/ntldr/bootsect.txt)
