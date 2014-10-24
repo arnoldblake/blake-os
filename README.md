@@ -14,11 +14,11 @@
 ### Booting
   My overly simplified view of the boot process is: The computer is powered on, followed by the POST and loading of the BIOS. The BIOS then searches for a volume boot record (the word 0x55AA in the last two bytes of the sector). If it finds one such sector, the BIOS will copy that sector to memory address 0x7C00 and begin executing from that point.
   
-  Below is a diagram of a boot record formatted with FAT12. Each cell is 1 byte. Bytes 0Bh - 3Dh (RED) represent the BIOS Parameter Block (BPB). Bytes 1FEh & 1FFh are the boot sector signature 55h, AAh. This leave us 452b left for bootloader code (not shown 7 byte media label 04h - A0h).
+  Below is a diagram of a boot record formatted with FAT12. Each cell is 1 byte. Bytes 0Bh - 3Dh (RED) represent the [BIOS Parameter Block (BPB)](http://en.wikipedia.org/wiki/BIOS_parameter_block). Bytes 1FEh & 1FFh are the boot sector signature 55h, AAh. This leave us 452b left for bootloader code (not shown 7 byte media label 04h - A0h).
   
 ![Boot Sector Byte Diagram](https://github.com/arnoldblake/blake-os/blob/master/doc/images/boot_sector_byte.png)
 
-  When the computer hands over execution at this point the registers DS, ES, SS should be initialized to segment 0000h, SS:SP will be 0000h:0400h but should not be relied on.
+  When the computer hands over execution at this point the registers DS, ES, SS should be initialized to segment 0000h, SS:SP will be 0000h:0400h but should not be relied on. DL will be our boot device.
   
 ## Refrences
 * [os-dev.pdf](http://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)
