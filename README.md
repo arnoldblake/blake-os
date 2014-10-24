@@ -6,7 +6,7 @@
   For my build and testing environment I am using Ubuntu 14, nasm, bochs, and bochs-sdl.
   
 ##Booting
-(http://github.com/arnoldblake/blake-os/doc/image/boot_sector_byte_diagram.png)
+![Boot Sector Byte Diagram](http://github.com/arnoldblake/blake-os/doc/image/boot_sector_byte_diagram.png)
   
 ##Refrences
 [os-dev.pdf](http://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)
