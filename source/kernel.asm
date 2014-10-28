@@ -3,8 +3,6 @@
 ; PURPOSE: This is our main kernel program.
 ; =================================================================
 
-; Generic re implementation of our print function to see if
-; we made it into kernel code.
 kstart:
 	mov ax, 0			; Set stack segment to 0
 	mov ss, ax
@@ -16,15 +14,10 @@ kstart:
 	mov fs, ax
 	mov gs, ax
 
-	mov bx, MSG_KERNEL
-	mov ah, 0x0E
-kprint_start:
-	mov al, [bx]
-	int 0x10
-	add bx, 1
-	cmp byte [bx], 0
-	jne kprint_start
-	
+	mov si, MSG_KERNEL
+	call print
 	jmp $
+
+%include "source/lib/print.asm"
 
 	MSG_KERNEL db "Welcome to Kernel",0

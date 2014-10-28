@@ -97,13 +97,12 @@ bootloader: ; Setup segment registers and the stack
 
 
 end:
-	mov ax, MSG_NO_KERNEL_FOUND
-	call print_string
+	mov si, MSG_NO_KERNEL_FOUND
+	call print
 	jmp $
 	
 %include "source/lib/lba2chs.asm"
-%include "source/lib/print_string.asm"
-%include "source/lib/print_string2.asm"
+%include "source/lib/print.asm"
 
 ; ------------------------------------------------------------------	
 	boot_device db 0	; Boot device value
